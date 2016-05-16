@@ -23,7 +23,11 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("GMD", "Index", "GMD", new { area = "GMD" }, null)</li>
+                    <li>@Html.ActionLink(@Resources.Global.BarButtonGMD, "Index", "GMD", new { area = "GMD" }, null)</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.RouteLink("EN", "Default", null)</li>
+                    <li>@Html.RouteLink("简", new { lang = "zh-CN" }, null)</li>
                 </ul>
             </div>
         </div>

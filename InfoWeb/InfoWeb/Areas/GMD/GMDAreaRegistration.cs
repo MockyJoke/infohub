@@ -34,6 +34,14 @@ namespace InfoWeb.Areas.GMD
 
             //****************=======Default Route=========***********************
 
+            //constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" },
+
+            context.MapRoute(
+                "GMD_defaultAction_lang",
+                "{lang}/gmd/{controller}/{action}/{id}",
+                constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" },
+                defaults: new { action = "Index", area = AreaName, controller = AreaName, id = UrlParameter.Optional }
+            );
 
             context.MapRoute(
                 "GMD_defaultAction",

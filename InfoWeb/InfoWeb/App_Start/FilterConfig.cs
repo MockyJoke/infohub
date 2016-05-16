@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using InfoWeb.App;
+using System.Web;
 using System.Web.Mvc;
 
 namespace InfoWeb
@@ -8,6 +9,7 @@ namespace InfoWeb
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new LocalizationAttribute("en"), 0);
         }
     }
 }

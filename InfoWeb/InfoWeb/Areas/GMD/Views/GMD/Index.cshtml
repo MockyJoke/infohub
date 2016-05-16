@@ -1,10 +1,12 @@
-﻿@using InfoWeb.Areas.GMD.Models
+﻿@using InfoWeb.Areas.GMD.Resources
+@using InfoWeb.Areas.GMD.Models
+
 @model IEnumerable<GMDTalkShow>
 @{
-    ViewBag.Title = "光明顶";
+    ViewBag.Title = GMDResources.HomePageTitle;
 }
 
-<h2>光明顶</h2>
+<h2>@GMDResources.HomePageTitle</h2>
 <div class="container">
     <ul class="list-group">
         @{
