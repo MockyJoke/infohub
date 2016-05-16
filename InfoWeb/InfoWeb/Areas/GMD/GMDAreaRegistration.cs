@@ -20,14 +20,14 @@ namespace InfoWeb.Areas.GMD
 
             context.Routes.MapHttpRoute(
                 name: "GMDApiAction",
-                routeTemplate: "GMD/api/{controller}/{action}",
+                routeTemplate: "gmd/api/{controller}/{action}",
                 // Optional: Added the following line to support default /GMD/api access
                 defaults: new { action = "Get", area = AreaName, controller = AreaName, id = UrlParameter.Optional }
             );
 
             context.Routes.MapHttpRoute(
                 name: "GMDApi",
-                routeTemplate: "GMD/api/{controller}",
+                routeTemplate: "gmd/api/{controller}",
                 // Optional: Added the following line to support default /GMD/api access
                 defaults: new { action = "Get", area = AreaName, controller = AreaName, id = UrlParameter.Optional }
             );
@@ -37,7 +37,7 @@ namespace InfoWeb.Areas.GMD
 
             context.MapRoute(
                 "GMD_defaultAction",
-                "GMD/{controller}/{action}/{id}",
+                "gmd/{controller}/{action}/{id}",
                 new { action = "Index", area = AreaName, controller = AreaName, id = UrlParameter.Optional }
             );
             //context.MapRoute(
