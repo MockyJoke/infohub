@@ -23,7 +23,6 @@ namespace InfoWeb.Areas.IP.Controllers.Api
                 { "identity" , clientIp },
                 { "machine" , machine },
                 { "type", type},
-                { "timeStamp", timeStamp}
             };
             telemetry.TrackEvent("IP_Get", propDict, null);
             return this.SmartWebReturn(clientIp);
