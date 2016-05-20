@@ -1,4 +1,5 @@
 ﻿using InfoWeb.Models;
+using Microsoft.ApplicationInsights;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,17 @@ namespace InfoWeb.Areas.IP.Controllers.Api
     public class IPController : ApiController
     {
         // GET: api/ip
-        public string Get()
+        //[Route("ip/api/ip/Get/{id:int}")]
+        public string Get(string machine = "", string type = "", string timeStamp = "")
         {
+            string clientIp = GetClientIp();
+            TelemetryClient telemetry = new TelemetryClient();
+            Dictionary<string, string> propDict = new Dictionary<string, string>() {
+                { "machine" , machine },
+                { "type", type},
+                { "timeStamp", timeStamp}
+            };
+            telemetry.TrackEvent("IP_Get", propDict, null);
             return this.SmartWebReturn(GetClientIp());
         }
         private string GetClientIp(HttpRequestMessage request = null)
