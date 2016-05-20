@@ -20,12 +20,13 @@ namespace InfoWeb.Areas.IP.Controllers.Api
             string clientIp = GetClientIp();
             TelemetryClient telemetry = new TelemetryClient();
             Dictionary<string, string> propDict = new Dictionary<string, string>() {
+                { "ip" , clientIp },
                 { "machine" , machine },
                 { "type", type},
                 { "timeStamp", timeStamp}
             };
             telemetry.TrackEvent("IP_Get", propDict, null);
-            return this.SmartWebReturn(GetClientIp());
+            return this.SmartWebReturn(clientIp);
         }
         private string GetClientIp(HttpRequestMessage request = null)
         {
