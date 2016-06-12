@@ -156,7 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\IP\Models\" />
+    <Folder Include="Areas\Etc\Models\" />
+    <Folder Include="Areas\Etc\Views\Shared\" />
     <Folder Include="Areas\IP\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Etc\Controllers\Api\WolController.cs" />
+    <Compile Include="Areas\Etc\EtcAreaRegistration.cs" />
     <Compile Include="Areas\GMD\Controllers\Api\GMDController.cs" />
     <Compile Include="Areas\GMD\Controllers\GMDController.cs" />
     <Compile Include="Areas\GMD\GMDAreaRegistration.cs" />
@@ -209,6 +212,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Areas\IP\Controllers\Api\IPController.cs" />
     <Compile Include="Areas\IP\IPAreaRegistration.cs" />
+    <Compile Include="Areas\IP\Models\WolManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,6 +277,7 @@
     <Content Include="Areas\GMD\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\GMD\Views\GMD\Index.cshtml" />
     <Content Include="Areas\IP\Views\web.config" />
+    <Content Include="Areas\Etc\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
