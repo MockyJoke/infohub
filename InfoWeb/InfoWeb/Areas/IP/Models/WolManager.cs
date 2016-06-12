@@ -9,7 +9,7 @@ namespace InfoWeb.Areas.IP.Models
     {
         private static WolManager _instance = new WolManager();
         private Dictionary<string, WolTarget> _targetDict;
-        public const double DEFAULT_VALID_INTERVAL = 0.5;
+        public const double DEFAULT_VALID_INTERVAL = 5;
         private WolManager()
         {
             _targetDict = new Dictionary<string, WolTarget>();
