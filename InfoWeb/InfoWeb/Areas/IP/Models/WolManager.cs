@@ -45,7 +45,7 @@ namespace InfoWeb.Areas.IP.Models
         }
         public void RemoveMachine(string machineName)
         {
-            if (!_targetDict.ContainsKey(machineName))
+            if (_targetDict.ContainsKey(machineName))
             {
                 _targetDict.Remove(machineName);
             }
