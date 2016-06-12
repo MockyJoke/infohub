@@ -22,6 +22,9 @@ namespace InfoWeb.Areas.Etc.Controllers.Api
             if (set == "1")
             {
                 WolManager.Instance.RenewMachine(machine);
+            }else if (set == "0")
+            {
+                WolManager.Instance.RemoveMachine(machine);
             }
             return this.SmartWebReturn(WolManager.Instance.IsTargetValid(machine) ? 1 : 0);
         }

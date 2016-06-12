@@ -43,6 +43,13 @@ namespace InfoWeb.Areas.IP.Models
             }
             _targetDict[machineName].Renew();
         }
+        public void RemoveMachine(string machineName)
+        {
+            if (!_targetDict.ContainsKey(machineName))
+            {
+                _targetDict.Remove(machineName);
+            }
+        }
     }
     public class WolTarget
     {
