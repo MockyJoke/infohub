@@ -154,7 +154,10 @@ namespace InfoWeb.Areas.GMD.Models
             htmlDoc.LoadHtml(html);
             HtmlNode node = htmlDoc.GetElementbyId("sidebar");
             var nodes = node.SelectNodes("div/ul/li/ul/li/ul/li/a").Where(n => n.InnerText.Contains("月"));
-            return LoadCatagory(nodes.Last().GetAttributeValue("href", ""));
+            var list1 = LoadCatagory(nodes.Last().GetAttributeValue("href", ""));
+            var list2 = LoadCatagory(nodes.ToList()[nodes.Count() - 2].GetAttributeValue("href", ""));
+            //return LoadCatagory(nodes.Last().GetAttributeValue("href", ""));
+            return list1.Concat(list2).ToList();
         }
         private static List<GMDTalkShow> LoadCatagory(string catagoryUrl)
         {
