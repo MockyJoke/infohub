@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
@@ -51,17 +52,22 @@ namespace InfoWeb.Areas.GMD.Models
             }
         }
     }
-
+    [DataContract]
     public class TalkShowLink
     {
+        [DataMember]
         public string Content;
+        [DataMember]
         public string Url;
     }
+    [DataContract]
     public class GMDTalkShow
     {
+        [DataMember]
         public string Title { get; private set; }
+        [DataMember]
         public string SourceUrl { get; private set; }
-
+        [DataMember]
         public List<TalkShowLink> Links { get; private set; }
 
         public GMDTalkShow(string url)
@@ -99,7 +105,7 @@ namespace InfoWeb.Areas.GMD.Models
                 TalkShowLink link = new TalkShowLink() { Content = "Link", Url = linkNode.InnerText };
                 Links.Add(link);
                 string url2 = link.Url.Substring(0, link.Url.LastIndexOf('/'));
-                TalkShowLink link2 = new TalkShowLink() { Content = "Link", Url = url2.Replace("download","details") };
+                TalkShowLink link2 = new TalkShowLink() { Content = "Link", Url = url2.Replace("download", "details") };
                 Links.Add(link2);
 
             }
@@ -232,7 +238,7 @@ namespace InfoWeb.Areas.GMD.Models
             try
             {
                 int catId = Int32.Parse(list[1]);
-                return await LoadCatagory(string.Format("{0}={1}", list[0], catId-1));
+                return await LoadCatagory(string.Format("{0}={1}", list[0], catId - 1));
             }
             catch
             {
