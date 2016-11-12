@@ -14,9 +14,9 @@
             {
                 <li class="list-group-item list-group-item-success">
                     @ts.Title
-                    <a href="@ts.Links[0].Url" target="_blank">Link1 </a>
-                    <a href="@ts.Links[1].Url" target="_blank">Link2 </a>
-                    <a href="@ts.Links[2].Url" target="_blank">Link3 </a>
+                    <a href="@string.Format("https://{0}", @ts.Links[0].Url)" target="_blank">Link1 </a>
+                    <a href="@string.Format("https://{0}", @ts.Links[1].Url)" target="_blank">Link2 </a>
+                    @*<a href="@ts.Links[2].Url" target="_blank">Link3 </a>*@
                 </li>
             }
         }
