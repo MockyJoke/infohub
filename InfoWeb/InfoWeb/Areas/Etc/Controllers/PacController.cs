@@ -22,7 +22,7 @@ namespace InfoWeb.Areas.Etc.Controllers
                 result = pac.Replace(match.Groups[1].Value, "139.224.13.191:2737;");
             }
 
-            return Content(result, "application/json");
+            return Content(result, "application/x-ns-proxy-autoconfig");
         }
         public ActionResult Proxy1()
         {
