@@ -167,6 +167,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Etc\Controllers\Api\WolController.cs" />
+    <Compile Include="Areas\Etc\Controllers\PacController.cs" />
     <Compile Include="Areas\Etc\EtcAreaRegistration.cs" />
     <Compile Include="Areas\GMD\Controllers\Api\GMDController.cs" />
     <Compile Include="Areas\GMD\Controllers\GMDController.cs" />
