@@ -15,22 +15,28 @@ namespace InfoWeb.Areas.Etc.Controllers
         {
             WebRequest request = HttpWebRequest.Create(PAC_ORIGIN);
             string result = string.Empty;
+            string pac = string.Empty;
             using (StreamReader reader = new StreamReader((await request.GetResponseAsync()).GetResponseStream()))
             {
-                string pac = await reader.ReadToEndAsync();
+                pac = await reader.ReadToEndAsync();
                 Match match = Regex.Match(pac, Matching_Regex);
-                result = pac.Replace(match.Groups[1].Value, "139.224.13.191:443;");
+                result = pac.Replace(match.Groups[1].Value, "cnproxy.funkygeek.me:443;");
             }
 
-            return Content(result, "application/x-ns-proxy-autoconfig");
+            Response.AppendHeader("Content-Disposition", "proxy.pac");
+            Stream resultStream = GenerateStreamFromString(result);
+
+            return File(resultStream, "application/x-ns-proxy-autoconfig");
         }
-        public ActionResult Proxy1()
+
+        public Stream GenerateStreamFromString(string s)
         {
-            return View();
-        }
-        public ActionResult Proxy2()
-        {
-            return View();
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }
