@@ -19,7 +19,7 @@ namespace InfoWeb.Areas.Etc.Controllers
             {
                 string pac = await reader.ReadToEndAsync();
                 Match match = Regex.Match(pac, Matching_Regex);
-                result = pac.Replace(match.Groups[1].Value, "139.224.13.191:2737;");
+                result = pac.Replace(match.Groups[1].Value, "139.224.13.191:443;");
             }
 
             return Content(result, "application/x-ns-proxy-autoconfig");
