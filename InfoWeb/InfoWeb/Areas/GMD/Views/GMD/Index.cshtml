@@ -13,9 +13,12 @@
             foreach (GMDTalkShow ts in GMDTalkShowUtility.Instance.ShowList)
             {
                 <li class="list-group-item list-group-item-success">
-                    @ts.Title
-                    <a href="@string.Format("https://{0}", @ts.Links[0].Url)" target="_blank">Link1 </a>
-                    <a href="@string.Format("https://{0}", @ts.Links[1].Url)" target="_blank">Link2 </a>
+                    <a href="@ts.SourceUrl" target="_blank">@ts.Title</a> <span>----</span>
+                    @for (int i = 0; i < ts.Links.Count; i++)
+                    {
+                        <a href="@string.Format("https://{0}", @ts.Links[0].Url)" target="_blank">@string.Format("Link{0}", i + 1) </a>
+                    }
+                    @*<a href="@string.Format("https://{0}", @ts.Links[1].Url)" target="_blank">Link2 </a>*@
                     @*<a href="@ts.Links[2].Url" target="_blank">Link3 </a>*@
                 </li>
             }
