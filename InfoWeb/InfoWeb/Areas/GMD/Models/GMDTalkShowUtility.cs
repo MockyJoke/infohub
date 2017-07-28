@@ -78,6 +78,10 @@ namespace InfoWeb.Areas.GMD.Models
         public async Task<bool> LoadFromUrlAsync()
         {
             string html = await GetPageHtmlAsync(SourceUrl).ConfigureAwait(false);
+            if (!html.Contains("archive.org"))
+            {
+                return false;
+            }
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
@@ -219,8 +223,8 @@ namespace InfoWeb.Areas.GMD.Models
             string html = await GMDTalkShow.GetPageHtmlAsync("http://gmdwith.us").ConfigureAwait(false);
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
-            HtmlNode node = htmlDoc.GetElementbyId("main");
-            var nodes = node.SelectNodes("article/div/span/a").Where(n => n.InnerText.Contains("月"));
+            HtmlNode node = htmlDoc.GetElementbyId("archives-2");
+            var nodes = node.SelectNodes("ul/li/a");
 
             var catNode = nodes.ToList().FirstOrDefault();
             if (catNode == null)
@@ -232,6 +236,7 @@ namespace InfoWeb.Areas.GMD.Models
             var list2 = await LoadPrevCatagoryAsync(catUrl);
             return list1.Concat(list2).ToList();
         }
+
         public static async Task<List<GMDTalkShow>> LoadPrevCatagoryAsync(string catUrl)
         {
             var list = catUrl.Split('=');
