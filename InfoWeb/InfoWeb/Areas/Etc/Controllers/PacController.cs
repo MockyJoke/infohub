@@ -11,7 +11,7 @@ namespace InfoWeb.Areas.Etc.Controllers
         // GET: Etc/Pac
         public const string PAC_ORIGIN = @"http://yo.uku.im/proxy.pac";
         private const string Matching_Regex = @"_proxy_str\s?=.*PROXY (\S*).*";
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string server)
         {
             WebRequest request = HttpWebRequest.Create(PAC_ORIGIN);
             string result = string.Empty;
@@ -20,7 +20,14 @@ namespace InfoWeb.Areas.Etc.Controllers
             {
                 pac = await reader.ReadToEndAsync();
                 Match match = Regex.Match(pac, Matching_Regex);
-                result = pac.Replace(match.Groups[1].Value, "cnproxy.funkygeek.me:443;");
+                if (server == null)
+                {
+                    result = pac.Replace(match.Groups[1].Value, "cnproxy.funkygeek.me:443;");
+                }
+                else
+                {
+                    result = pac.Replace(match.Groups[1].Value, server + ";");
+                }
             }
 
             Response.AppendHeader("Content-Disposition", "proxy.pac");
@@ -29,7 +36,7 @@ namespace InfoWeb.Areas.Etc.Controllers
             return File(resultStream, "application/x-ns-proxy-autoconfig");
         }
 
-        public Stream GenerateStreamFromString(string s)
+        private Stream GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
