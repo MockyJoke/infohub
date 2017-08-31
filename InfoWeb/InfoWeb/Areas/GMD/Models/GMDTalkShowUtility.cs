@@ -101,7 +101,7 @@ namespace InfoWeb.Areas.GMD.Models
         {
             Links = new List<TalkShowLink>();
             HtmlNode node = htmlDoc.GetElementbyId("main");
-            var nodes = node.SelectNodes("article/div/p/span").Where(n => n.InnerText.Contains("archive")).ToList();
+            var nodes = node.SelectNodes("article/div/p").Where(n => n.InnerText.Contains("archive")).ToList();
             var linkNode = nodes.FirstOrDefault();
             if (linkNode == null) return;
             if (linkNode.InnerText.Contains(".mp3"))
@@ -220,21 +220,23 @@ namespace InfoWeb.Areas.GMD.Models
 
         public static async Task<List<GMDTalkShow>> LoadAll3()
         {
-            string html = await GMDTalkShow.GetPageHtmlAsync("http://gmdwith.us").ConfigureAwait(false);
-            HtmlDocument htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(html);
-            HtmlNode node = htmlDoc.GetElementbyId("archives-2");
-            var nodes = node.SelectNodes("ul/li/a");
+            //string html = await GMDTalkShow.GetPageHtmlAsync("http://gmdwith.us").ConfigureAwait(false);
+            //HtmlDocument htmlDoc = new HtmlDocument();
+            //htmlDoc.LoadHtml(html);
+            //HtmlNode node = htmlDoc.GetElementbyId("categories-2");
+            //var nodes = node.SelectNodes("ul/li/a");
 
-            var catNode = nodes.ToList().FirstOrDefault();
-            if (catNode == null)
-            {
-                return new List<Models.GMDTalkShow>();
-            }
-            string catUrl = catNode.GetAttributeValue("href", "");
-            var list1 = await LoadCatagory(catUrl);
-            var list2 = await LoadPrevCatagoryAsync(catUrl);
-            return list1.Concat(list2).ToList();
+            //var catNode = nodes.ToList().FirstOrDefault();
+            //if (catNode == null)
+            //{
+            //    return new List<Models.GMDTalkShow>();
+            //}
+            //string catUrl = catNode.GetAttributeValue("href", "");
+            string catUrl = "http://gmdwith.us/?cat=4";
+            var list1 = await LoadCatagory(catUrl).ConfigureAwait(false);
+            //var list2 = await LoadPrevCatagoryAsync(catUrl);
+            //return list1.Concat(list2).ToList();
+            return list1.ToList();
         }
 
         public static async Task<List<GMDTalkShow>> LoadPrevCatagoryAsync(string catUrl)
