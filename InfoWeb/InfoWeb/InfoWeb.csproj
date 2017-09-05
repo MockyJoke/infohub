@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Etc\Models\" />
     <Folder Include="Areas\Etc\Views\Shared\" />
     <Folder Include="Areas\IP\Views\Shared\" />
   </ItemGroup>
@@ -169,6 +168,8 @@
     <Compile Include="Areas\Etc\Controllers\Api\WolController.cs" />
     <Compile Include="Areas\Etc\Controllers\PacController.cs" />
     <Compile Include="Areas\Etc\EtcAreaRegistration.cs" />
+    <Compile Include="Areas\Etc\Models\ProxyFinder.cs" />
+    <Compile Include="Areas\Etc\Models\ProxyTester.cs" />
     <Compile Include="Areas\GMD\Controllers\Api\GMDController.cs" />
     <Compile Include="Areas\GMD\Controllers\GMDController.cs" />
     <Compile Include="Areas\GMD\GMDAreaRegistration.cs" />
