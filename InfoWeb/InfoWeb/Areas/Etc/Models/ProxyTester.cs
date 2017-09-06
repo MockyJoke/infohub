@@ -54,8 +54,11 @@ namespace InfoWeb.Areas.Etc.Models
                     }
                     return testResult;
                 }, cancellationTokenSource.Token);
-                task.Start();
                 tasks.Add(task);
+            }
+            foreach (Task<TestResult<bool>> task in tasks)
+            {
+                task.Start();
             }
             Task.Run(async () =>
             {
