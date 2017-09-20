@@ -27,7 +27,7 @@ namespace InfoWeb.Areas.Etc.Controllers
                 Match match = Regex.Match(pac, Matching_Regex);
                 if (server == null)
                 {
-                    //result = pac.Replace(match.Groups[1].Value, "cnproxy.funkygeek.me:443;");
+                    result = pac;
                 }
                 else if (server == "auto")
                 {
