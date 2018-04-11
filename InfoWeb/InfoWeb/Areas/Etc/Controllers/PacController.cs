@@ -54,18 +54,26 @@ namespace InfoWeb.Areas.Etc.Controllers
         {
             return Task.Run(async () =>
             {
-                string neteaseCheckUrl = "http://ipservice.163.com/isFromMainland";
-                WebRequest request = HttpWebRequest.Create(neteaseCheckUrl);
-                WebProxy myproxy = new WebProxy(proxyEndpoint.Hostname, proxyEndpoint.Port);
-                myproxy.BypassProxyOnLocal = false;
-                request.Proxy = myproxy;
-                request.Method = "GET";
-                string responseText = string.Empty;
-                using (StreamReader reader = new StreamReader((await request.GetResponseAsync()).GetResponseStream()))
+                try
                 {
-                    responseText = await reader.ReadToEndAsync();
-                    return responseText.ToLower().Contains("true");
+                    string neteaseCheckUrl = "http://ipservice.163.com/isFromMainland";
+                    WebRequest request = HttpWebRequest.Create(neteaseCheckUrl);
+                    WebProxy myproxy = new WebProxy(proxyEndpoint.Hostname, proxyEndpoint.Port);
+                    myproxy.BypassProxyOnLocal = false;
+                    request.Proxy = myproxy;
+                    request.Method = "GET";
+                    string responseText = string.Empty;
+                    using (StreamReader reader = new StreamReader((await request.GetResponseAsync()).GetResponseStream()))
+                    {
+                        responseText = await reader.ReadToEndAsync();
+                        return responseText.ToLower().Contains("true");
+                    }
                 }
+                catch
+                {
+                    return false;
+                }
+                
             }).Result;
         }
 
