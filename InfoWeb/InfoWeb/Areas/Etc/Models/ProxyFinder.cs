@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
+using Jint;
 
 namespace InfoWeb.Areas.Etc.Models
 {
@@ -15,7 +16,11 @@ namespace InfoWeb.Areas.Etc.Models
     {
         public async Task<List<ProxyEndpoint>> FindAsync()
         {
+            return await provider1();
+        }
 
+        private async Task<List<ProxyEndpoint>> provider0()
+        {
             WebRequest request = HttpWebRequest.Create("http://www.gatherproxy.com/proxylist/country/?c=China");
 
             string html = string.Empty;
@@ -56,6 +61,53 @@ namespace InfoWeb.Areas.Etc.Models
 
             }
             return proxyEndpoints;
+        }
+        private async Task<List<ProxyEndpoint>> provider1()
+        {
+            WebRequest request = HttpWebRequest.Create(@"https://www.proxynova.com/proxy-server-list/country-cn");
+
+            string html = string.Empty;
+            using (StreamReader reader = new StreamReader((await request.GetResponseAsync()).GetResponseStream()))
+            {
+                html = await reader.ReadToEndAsync();
+            }
+
+            HtmlDocument htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            HtmlNode node = htmlDoc.GetElementbyId("tbl_proxy_list");
+            var nodes = node.SelectNodes("tbody/tr");
+            //var noddd = nodes.Where(n => n.GetAttributeValue("class", "").Contains("proxy"));
+            List<ProxyEndpoint> proxyEndpoints = new List<ProxyEndpoint>();
+            foreach (HtmlNode n in nodes)
+            {
+                try
+                {
+                    var entries = n.SelectNodes("td");
+
+                    string hostname = decodeJavaScript(entries[0].SelectNodes("abbr/script")[0].InnerText);
+                    int port = Convert.ToInt32(entries[1].InnerText);
+                    string type = entries[6].SelectNodes("span")[0].InnerText;
+                    ProxyType proxyType;
+                    Enum.TryParse(type, out proxyType);
+                    ProxyEndpoint proxyEndpoint = new ProxyEndpoint(hostname, port, proxyType);
+                    proxyEndpoints.Add(proxyEndpoint);
+                }
+                catch
+                {
+
+                }
+
+            }
+            return proxyEndpoints;
+        }
+        private string decodeJavaScript(string script)
+        {
+            Match match = Regex.Match(script, @"document.write\((.*)\);");
+            string line = match.Groups[1].Value;
+            var engine = new Engine();
+            var result = engine.Execute(line).GetCompletionValue();
+            return result.AsString();
         }
     }
 }
